@@ -1,0 +1,187 @@
+Public Class Form1
+    Dim filestate As Boolean = False
+    Dim curfilename As String
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        OpenFileDialog1.InitialDirectory = "D:\"
+        OpenFileDialog1.Filter = "TextFile|*.txt|Document|*.doc|All files|*.*"
+        If OpenFileDialog1.ShowDialog() <> Windows.Forms.DialogResult.Cancel Then
+            rr.LoadFile(OpenFileDialog1.FileName)
+            curfilename = OpenFileDialog1.FileName
+            filestate = True
+
+        End If
+
+    End Sub
+
+    Private Sub ToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem4.Click
+        SaveFileDialog1.InitialDirectory = "D:\"
+        SaveFileDialog1.Filter = "TextFile|*.txt|Document|*.doc|All files|*.*"
+        If SaveFileDialog1.ShowDialog() <> Windows.Forms.DialogResult.Cancel Then
+            rr.SaveFile(SaveFileDialog1.FileName)
+            curfilename = SaveFileDialog1.FileName
+            filestate = True
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+        If filestate = True Then
+            Dim x As Integer
+            x = MsgBox("Do You Want To Save File..", MsgBoxStyle.YesNoCancel)
+            If x = 6 Then
+                rr.SaveFile(curfilename)
+                rr.Clear()
+                filestate = False
+                rr.Focus()
+            ElseIf x = 7 Then
+                rr.Clear()
+                curfilename = ""
+                filestate = False
+                rr.Focus()
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub Form1_Click(sender As Object, e As EventArgs) Handles Me.Click
+        Me.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub Form1_DoubleClick(sender As Object, e As EventArgs) Handles Me.DoubleClick
+        Me.BackColor = Color.LightBlue
+
+
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ToolStripStatusLabel1.Text = "Date And Time"
+        MenuStrip1.BackColor = Color.SteelBlue
+        StatusStrip1.BackColor = Color.SteelBlue
+        ToolStripMenuItem1.ForeColor = Color.AliceBlue
+        ToolStripMenuItem.ForeColor = Color.AliceBlue
+        FormatToolStripMenuItem.ForeColor = Color.AliceBlue
+
+
+        Me.BackColor = Color.LightBlue
+
+        rr.Width = Me.Width - 50
+        rr.Height = Me.Height - 50
+
+
+    End Sub
+
+    Private Sub CutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CutToolStripMenuItem.Click
+        rr.Cut()
+    End Sub
+
+    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
+        rr.Copy()
+    End Sub
+
+    Private Sub UndoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UndoToolStripMenuItem.Click
+        rr.Undo()
+    End Sub
+
+    Private Sub RedoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RedoToolStripMenuItem.Click
+        rr.Redo()
+    End Sub
+
+    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
+        rr.Refresh()
+    End Sub
+
+    Private Sub FontToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FontToolStripMenuItem.Click
+        FontDialog1.ShowDialog()
+        rr.SelectionFont = FontDialog1.Font
+    End Sub
+
+    Private Sub ColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ColorToolStripMenuItem.Click
+        ColorDialog1.ShowDialog()
+        rr.SelectionColor = ColorDialog1.Color
+    End Sub
+
+    Private Sub ToolStripMenuItem5_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem5.Click
+        If filestate = True Then
+            rr.SaveFile(curfilename)
+            SaveFileDialog1.InitialDirectory = "D:\"
+            SaveFileDialog1.Filter = "TextFile|*.txt|Document|*.doc|All files|*.*"
+            If SaveFileDialog1.ShowDialog() <> Windows.Forms.DialogResult.Cancel Then
+                rr.SaveFile(SaveFileDialog1.FileName)
+                curfilename = SaveFileDialog1.FileName
+                filestate = True
+            End If
+
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuItem6_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem6.Click
+        rr.Clear()
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        PrintDialog1.ShowDialog()
+
+    End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        rr.Width = Me.Width - 50
+        rr.Height = Me.Height - 50
+
+    End Sub
+
+    Private Sub DateAndTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DateAndTimeToolStripMenuItem.Click
+        rr.Text = Date.Now
+
+    End Sub
+
+    Private Sub ToolStripSplitButton1_ButtonClick(sender As Object, e As EventArgs) Handles ToolStripSplitButton1.ButtonClick
+        ToolStripStatusLabel1.Text = Date.Now
+
+    End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        rr.Undo()
+
+    End Sub
+
+    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
+        rr.Redo()
+
+    End Sub
+
+    Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
+        rr.Cut()
+
+    End Sub
+
+    Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
+        rr.Copy()
+    End Sub
+
+    Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles ToolStripButton5.Click
+        rr.Clear()
+    End Sub
+
+    Private Sub ToolStripButton6_Click(sender As Object, e As EventArgs) Handles ToolStripButton6.Click
+        rr.Text = Date.Now
+
+    End Sub
+
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        ToolStripMenuItem1.ForeColor = Color.Black
+    End Sub
+
+    Private Sub ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem.Click
+        ToolStripMenuItem.ForeColor = Color.Black
+    End Sub
+
+    Private Sub FormatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FormatToolStripMenuItem.Click
+        FormatToolStripMenuItem.ForeColor = Color.Black
+    End Sub
+
+    Private Sub PasteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteToolStripMenuItem.Click
+        rr.Paste()
+    End Sub
+End Class
